@@ -8,7 +8,7 @@ function Home() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8000/homePageMessage")
+    fetch("http://localhost:8000/home/homePageMessage")
       .then((res) => res.json())
       .then((data) => setMessage(data.message));
   }, []);
