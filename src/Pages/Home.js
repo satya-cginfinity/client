@@ -7,11 +7,48 @@ function Home() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id');
+  var accessToken = "";
+
   useEffect(() => {
-    fetch("http://localhost:8000/home/homePageMessage")
+    fetch("http://localhost:8000/api/requestToken", {
+      method: 'POST',
+      headers: {
+        'Accept': 'Application/json',
+        'Content-Type': 'Application/json',
+      },
+      body: JSON.stringify({
+        key: id
+      })})
       .then((res) => res.json())
-      .then((data) => setMessage(data.message));
+      .then((data) => accessToken = data.message)
+      .then((data) => fetch("http://localhost:8000/home/homePageMessage", {
+        method: 'GET',
+        headers: {
+          'Accept': 'Application/json',
+          'Content-Type': 'Application/json',
+          'access-token': accessToken,
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => setMessage(data.message)));
+    
   }, []);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:8000/home/homePageMessage", {
+  //     method: 'GET',
+  //     headers: {
+  //       'Accept': 'Application/json',
+  //       'Content-Type': 'Application/json',
+  //       'access-token': accessToken,
+  //     }
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setMessage(data.message));
+  // }, []);
 
   return (
     <div className="Home">

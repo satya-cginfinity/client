@@ -4,6 +4,10 @@ import "./App.css";
 
 function callApi() {
   window.location ="http://localhost:8000/login/sso";
+
+  // fetch("http://localhost:8000/welcomeMessage")
+  //     .then((res) => res.json())
+  //     .then((data) => alert(data.message));
 }
 
 function App() {
