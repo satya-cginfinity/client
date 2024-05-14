@@ -32,7 +32,7 @@ function Home() {
         <h1>{message}</h1>
 
         {/* <button onClick={() => navigate("/", { replace: true })}> 
-          Click to load App Page
+          Logout
         </button> */}
       </header>
     </div>
