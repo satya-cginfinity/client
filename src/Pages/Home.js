@@ -20,8 +20,7 @@ function Home() {
         }
       })
       .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-    
+      .then((data) => data.message == "token-expired" || data.message == "unauthenticated" ? window.location = "http://localhost:3000/" : setMessage(data.message));
   }, []);
 
   return (
