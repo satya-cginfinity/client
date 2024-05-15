@@ -8,12 +8,18 @@ function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const [cookies] = useCookies(["access-token"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["access-token"]);
   const accessToken = cookies["access-token"];
 
   function SetValues(name, email){
+    setCookie('access-token', accessToken, { path: '/' });
     setName(name);
     setEmail(email);
+  }
+
+  function Logout(){
+      removeCookie("access-token","/");
+      navigate("/", { replace: true });
   }
 
   useEffect(() => {
@@ -37,10 +43,10 @@ function Home() {
       <header className="Home-header">
         <img src={logo} className="Home-logo" alt="logo" />
        
-        <h1>Hey {name} you are logged in now.</h1>
+        <h1>Hey {name}! you are logged in now.</h1>
         <p>Your email is {email}</p>
 
-        <button onClick={() => navigate("/", { replace: true })}> 
+        <button onClick={Logout}> 
           Logout
         </button>
       </header>
